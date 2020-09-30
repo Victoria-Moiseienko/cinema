@@ -9,7 +9,7 @@
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/cinema?serverTimezone=UTC</property>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password">Vi4ft5q7Ktrr9T6toPcN</property>
+        <property name="hibernate.connection.password">psw</property>
         <property name="show_sql">true</property>
         <property name="hibernate.hbm2ddl.auto">create-drop</property>
         <mapping class="vic.cinema.model.Movie" />
