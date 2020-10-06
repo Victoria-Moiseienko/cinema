@@ -7,7 +7,5 @@ import vic.cinema.model.MovieSession;
 public interface MovieSessionDao {
     MovieSession add(MovieSession movieSession);
 
-    List<MovieSession> getAll();
-
     List<MovieSession> findAvailableSessions(Long movieId, LocalDate date);
 }
