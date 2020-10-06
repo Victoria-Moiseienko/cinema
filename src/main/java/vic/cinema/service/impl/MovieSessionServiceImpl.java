@@ -15,8 +15,7 @@ public class MovieSessionServiceImpl implements MovieSessionService {
 
     @Override
     public List<MovieSession> findAvailableSessions(Long movieId, LocalDate date) {
-        List<MovieSession> movieSessionList = movieSessionDao.findAvailableSessions(movieId, date);
-        return movieSessionList;
+        return movieSessionDao.findAvailableSessions(movieId, date);
     }
 
     @Override
