@@ -13,5 +13,7 @@
         <property name="show_sql">true</property>
         <property name="hibernate.hbm2ddl.auto">create-drop</property>
         <mapping class="vic.cinema.model.Movie" />
+        <mapping class="vic.cinema.model.CinemaHall" />
+        <mapping class="vic.cinema.model.MovieSession" />
     </session-factory>
 </hibernate-configuration>
