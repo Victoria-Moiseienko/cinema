@@ -3,10 +3,13 @@ package vic.cinema;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import javax.security.sasl.AuthenticationException;
 import vic.cinema.lib.Injector;
 import vic.cinema.model.CinemaHall;
 import vic.cinema.model.Movie;
 import vic.cinema.model.MovieSession;
+import vic.cinema.model.User;
+import vic.cinema.sequrity.AuthenticationService;
 import vic.cinema.service.CinemaHallService;
 import vic.cinema.service.MovieService;
 import vic.cinema.service.MovieSessionService;
@@ -14,7 +17,7 @@ import vic.cinema.service.MovieSessionService;
 public class Main {
     private static Injector injector = Injector.getInstance("vic.cinema");
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws AuthenticationException {
         System.out.println("--- Movies ---");
         Movie movie = new Movie();
         movie.setTitle("Fast and Furious");
@@ -55,5 +58,16 @@ public class Main {
         List<MovieSession> availableSessions =
                 movieSessionService.findAvailableSessions(movie2.getId(), LocalDate.now());
         availableSessions.forEach(System.out::println);
+
+        System.out.println("--- Users ---");
+        User user = new User();
+        user.setEmail("example@email.com");
+        user.setPassword("qwerty");
+        AuthenticationService authenticationService =
+                (AuthenticationService) injector.getInstance(AuthenticationService.class);
+
+        authenticationService.register(user.getEmail(), user.getPassword());
+        User user2 = authenticationService.login(user.getEmail(), user.getPassword());
+        System.out.println(user2);
     }
 }
