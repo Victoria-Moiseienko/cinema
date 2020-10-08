@@ -6,6 +6,7 @@ import vic.cinema.lib.Inject;
 import vic.cinema.lib.Service;
 import vic.cinema.model.User;
 import vic.cinema.sequrity.AuthenticationService;
+import vic.cinema.service.ShoppingCartService;
 import vic.cinema.service.UserService;
 import vic.cinema.util.HashUtil;
 
@@ -13,6 +14,8 @@ import vic.cinema.util.HashUtil;
 public class AuthenticationServiceImpl implements AuthenticationService {
     @Inject
     private UserService userService;
+    @Inject
+    private ShoppingCartService shoppingCartService;
 
     @Override
     public User login(String email, String password) throws AuthenticationException {
@@ -31,7 +34,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         User user = new User();
         user.setEmail(email);
         user.setPassword(password);
-        userService.add(user);
+        User userFromDB = userService.add(user);
+        shoppingCartService.registerNewShoppingCart(userFromDB);
         return user;
     }
 }

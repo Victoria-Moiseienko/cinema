@@ -13,6 +13,7 @@ import vic.cinema.sequrity.AuthenticationService;
 import vic.cinema.service.CinemaHallService;
 import vic.cinema.service.MovieService;
 import vic.cinema.service.MovieSessionService;
+import vic.cinema.service.ShoppingCartService;
 
 public class Main {
     private static Injector injector = Injector.getInstance("vic.cinema");
@@ -24,11 +25,9 @@ public class Main {
         MovieService movieService =
                 (MovieService) injector.getInstance(MovieService.class);
         movieService.add(movie);
-
         Movie movie2 = new Movie();
         movie2.setTitle("The Gentlemen");
         movieService.add(movie2);
-
         movieService.getAll().forEach(System.out::println);
 
         System.out.println("--- Cinema Halls ---");
@@ -69,5 +68,16 @@ public class Main {
         authenticationService.register(user.getEmail(), user.getPassword());
         User user2 = authenticationService.login(user.getEmail(), user.getPassword());
         System.out.println(user2);
+
+        System.out.println("--- Shopping Cart ---");
+        ShoppingCartService shoppingCartService =
+                (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
+        shoppingCartService.addSession(movieSession2, user2);
+        shoppingCartService.addSession(movieSession, user2);
+        System.out.println("Cart with tickets: ");
+        System.out.println(shoppingCartService.getByUser(user2));
+        shoppingCartService.clear(shoppingCartService.getByUser(user2));
+        System.out.println("Empty cart: ");
+        System.out.println(shoppingCartService.getByUser(user2));
     }
 }

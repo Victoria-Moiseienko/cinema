@@ -16,5 +16,7 @@
         <mapping class="vic.cinema.model.CinemaHall" />
         <mapping class="vic.cinema.model.MovieSession" />
         <mapping class="vic.cinema.model.User" />
+        <mapping class="vic.cinema.model.Ticket" />
+        <mapping class="vic.cinema.model.ShoppingCart" />
     </session-factory>
 </hibernate-configuration>

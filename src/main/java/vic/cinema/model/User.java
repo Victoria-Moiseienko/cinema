@@ -52,8 +52,8 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{\nid=" + id + ", \nemail='" + email + '\''
-                + ", \npassword='" + password + '\''
-                + ", \nsalt=" + Arrays.toString(salt) + "\n}";
+        return "User{id=" + id + ", \nemail='" + email + '\''
+                + ", password='" + password + '\''
+                + ", salt=" + Arrays.toString(salt) + "}";
     }
 }
