@@ -4,7 +4,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import vic.cinema.exeptions.PasswordHashingException;
-import vic.cinema.model.User;
 
 public class HashUtil {
     public static final String SHA_512 = "SHA-512";
@@ -31,7 +30,7 @@ public class HashUtil {
         return hashedPassword.toString();
     }
 
-    public static boolean isValid(String psw, User user) {
-        return hashPassword(psw, user.getSalt()).equals(user.getPassword());
+    public static boolean isValid(String psw, String userPassword, byte[] userSalt) {
+        return hashPassword(psw, userSalt).equals(userPassword);
     }
 }

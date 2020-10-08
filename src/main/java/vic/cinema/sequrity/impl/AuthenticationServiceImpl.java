@@ -17,7 +17,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public User login(String email, String password) throws AuthenticationException {
         Optional<User> userFromDB = userService.findByEmail(email);
-        if (userFromDB.isPresent() && HashUtil.isValid(password, userFromDB.get())) {
+        if (userFromDB.isPresent()
+                && HashUtil.isValid(password,
+                     userFromDB.get().getPassword(),
+                     userFromDB.get().getSalt())) {
             return userFromDB.get();
         }
         throw new AuthenticationException("Incorrect email or password");
@@ -27,8 +30,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public User register(String email, String password) {
         User user = new User();
         user.setEmail(email);
-        user.setSalt(HashUtil.getSalt());
-        user.setPassword(HashUtil.hashPassword(password, user.getSalt()));
+        user.setPassword(password);
         userService.add(user);
         return user;
     }

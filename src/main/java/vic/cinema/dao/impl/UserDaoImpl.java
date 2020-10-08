@@ -26,7 +26,8 @@ public class UserDaoImpl implements UserDao {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw new DataProcessingException("User has not been added\n", e);
+            throw new DataProcessingException("User with email ["
+                    + user.getEmail() + "] has not been added\n", e);
         } finally {
             if (session != null) {
                 session.close();
@@ -40,7 +41,7 @@ public class UserDaoImpl implements UserDao {
             Query<User> query =
                     session.createQuery("FROM User WHERE email = :userEmail ", User.class);
             query.setParameter("userEmail", email);
-            return Optional.of(query.getSingleResult());
+            return query.uniqueResultOptional();
         } catch (Exception e) {
             throw new DataProcessingException(
                     "User has not been found: email[" + email + "]", e);

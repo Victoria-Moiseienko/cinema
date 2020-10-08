@@ -6,6 +6,7 @@ import vic.cinema.lib.Inject;
 import vic.cinema.lib.Service;
 import vic.cinema.model.User;
 import vic.cinema.service.UserService;
+import vic.cinema.util.HashUtil;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -14,6 +15,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User add(User user) {
+        user.setSalt(HashUtil.getSalt());
+        user.setPassword(HashUtil.hashPassword(user.getPassword(), user.getSalt()));
         return userDao.add(user);
     }
 
