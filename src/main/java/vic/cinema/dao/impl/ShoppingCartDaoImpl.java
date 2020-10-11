@@ -1,6 +1,5 @@
 package vic.cinema.dao.impl;
 
-import java.util.Optional;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -37,7 +36,7 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
     }
 
     @Override
-    public Optional<ShoppingCart> getByUser(User user) {
+    public ShoppingCart getByUser(User user) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Query<ShoppingCart> query = session.createQuery(
                     "FROM ShoppingCart cart "
@@ -46,7 +45,7 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
                     + "WHERE user.id = :userId",
                     ShoppingCart.class);
             query.setParameter("userId", user.getId());
-            return query.uniqueResultOptional();
+            return query.uniqueResult();
         } catch (Exception e) {
             throw new DataProcessingException(
                     "Shopping Cart for user [" + user.getEmail() + "] has not been found", e);

@@ -1,10 +1,8 @@
 package vic.cinema.service.impl;
 
 import java.util.ArrayList;
-import java.util.Optional;
 import vic.cinema.dao.ShoppingCartDao;
 import vic.cinema.dao.TicketDao;
-import vic.cinema.exeptions.DataProcessingException;
 import vic.cinema.lib.Inject;
 import vic.cinema.lib.Service;
 import vic.cinema.model.MovieSession;
@@ -33,12 +31,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public ShoppingCart getByUser(User user) {
-        Optional<ShoppingCart> cartByUser = shoppingCartDao.getByUser(user);
-        if (cartByUser.isPresent()) {
-            return cartByUser.get();
-        }
-        throw new DataProcessingException("Shopping cart for user["
-                + user.getEmail() + "] has not been found");
+        return shoppingCartDao.getByUser(user);
     }
 
     @Override
