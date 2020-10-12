@@ -18,5 +18,6 @@
         <mapping class="vic.cinema.model.User" />
         <mapping class="vic.cinema.model.Ticket" />
         <mapping class="vic.cinema.model.ShoppingCart" />
+        <mapping class="vic.cinema.model.Order" />
     </session-factory>
 </hibernate-configuration>

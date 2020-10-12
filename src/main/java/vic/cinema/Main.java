@@ -13,6 +13,7 @@ import vic.cinema.sequrity.AuthenticationService;
 import vic.cinema.service.CinemaHallService;
 import vic.cinema.service.MovieService;
 import vic.cinema.service.MovieSessionService;
+import vic.cinema.service.OrderService;
 import vic.cinema.service.ShoppingCartService;
 
 public class Main {
@@ -76,8 +77,13 @@ public class Main {
         shoppingCartService.addSession(movieSession, user2);
         System.out.println("Cart with tickets: ");
         System.out.println(shoppingCartService.getByUser(user2));
+
+        System.out.println("--- Order ---");
+        OrderService orderService =
+                (OrderService) injector.getInstance(OrderService.class);
+        orderService.completeOrder(shoppingCartService.getByUser(user2).getTickets(), user2);
         shoppingCartService.clear(shoppingCartService.getByUser(user2));
-        System.out.println("Empty cart: ");
-        System.out.println(shoppingCartService.getByUser(user2));
+        System.out.println("Order History:");
+        orderService.getOrderHistory(user2).forEach(System.out::println);
     }
 }
