@@ -6,14 +6,17 @@ import vic.cinema.dao.OrderDao;
 import vic.cinema.lib.Inject;
 import vic.cinema.lib.Service;
 import vic.cinema.model.Order;
-import vic.cinema.model.Ticket;
+import vic.cinema.model.ShoppingCart;
 import vic.cinema.model.User;
 import vic.cinema.service.OrderService;
+import vic.cinema.service.ShoppingCartService;
 
 @Service
 public class OrderServiceImpl implements OrderService {
     @Inject
     private OrderDao orderDao;
+    @Inject
+    private ShoppingCartService shoppingCartService;
 
     @Override
     public List<Order> getOrderHistory(User user) {
@@ -21,11 +24,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order completeOrder(List<Ticket> tickets, User user) {
+    public Order completeOrder(ShoppingCart cart) {
         Order order = new Order();
-        order.setTickets(tickets);
-        order.setUser(user);
+        order.setTickets(cart.getTickets());
+        order.setUser(cart.getUser());
         order.setOrderDate(LocalDateTime.now());
+        shoppingCartService.clear(cart);
         return orderDao.create(order);
     }
 }
