@@ -56,7 +56,7 @@ public class Order {
 
     @Override
     public String toString() {
-        return "\nOrder{ id=" + id + ", tickets=" + tickets
-                + ", orderDate=" + orderDate + ", user=" + user + '}';
+        return "\nOrder{ id=" + id + ", tickets=" + tickets + ", orderDate="
+                + orderDate + ", user=" + user + '}';
     }
 }

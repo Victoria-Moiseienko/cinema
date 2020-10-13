@@ -5,7 +5,7 @@ import vic.cinema.model.Order;
 import vic.cinema.model.User;
 
 public interface OrderDao {
-    Order create(Order order);
-
     List<Order> getAllByUser(User user);
+
+    Order create(Order order);
 }

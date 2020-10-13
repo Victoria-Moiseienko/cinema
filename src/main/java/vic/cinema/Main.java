@@ -78,7 +78,7 @@ public class Main {
         System.out.println("Cart with tickets: ");
         System.out.println(shoppingCartService.getByUser(user2));
 
-        System.out.println("--- Order ---");
+        System.out.println("---- Order ----");
         OrderService orderService =
                 (OrderService) injector.getInstance(OrderService.class);
         orderService.completeOrder(shoppingCartService.getByUser(user2).getTickets(), user2);

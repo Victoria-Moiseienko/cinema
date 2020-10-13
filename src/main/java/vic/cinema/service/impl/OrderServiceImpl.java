@@ -16,16 +16,16 @@ public class OrderServiceImpl implements OrderService {
     private OrderDao orderDao;
 
     @Override
+    public List<Order> getOrderHistory(User user) {
+        return orderDao.getAllByUser(user);
+    }
+
+    @Override
     public Order completeOrder(List<Ticket> tickets, User user) {
         Order order = new Order();
         order.setTickets(tickets);
         order.setUser(user);
         order.setOrderDate(LocalDateTime.now());
         return orderDao.create(order);
-    }
-
-    @Override
-    public List<Order> getOrderHistory(User user) {
-        return orderDao.getAllByUser(user);
     }
 }

@@ -27,7 +27,7 @@ public class OrderDaoImpl implements OrderDao {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw new DataProcessingException("Order has not been added\n", e);
+            throw new DataProcessingException("Order has not been added \n", e);
         } finally {
             if (session != null) {
                 session.close();
