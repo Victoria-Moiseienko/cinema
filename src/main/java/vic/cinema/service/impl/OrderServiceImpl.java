@@ -1,6 +1,7 @@
 package vic.cinema.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import vic.cinema.dao.OrderDao;
 import vic.cinema.lib.Inject;
@@ -26,7 +27,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order completeOrder(ShoppingCart cart) {
         Order order = new Order();
-        order.setTickets(cart.getTickets());
+        order.setTickets(new ArrayList<>(cart.getTickets()));
         order.setUser(cart.getUser());
         order.setOrderDate(LocalDateTime.now());
         shoppingCartService.clear(cart);
