@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.security.sasl.AuthenticationException;
-
 import org.apache.log4j.Logger;
 import vic.cinema.lib.Injector;
 import vic.cinema.model.CinemaHall;
