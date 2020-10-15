@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.security.sasl.AuthenticationException;
+
+import org.apache.log4j.Logger;
 import vic.cinema.lib.Injector;
 import vic.cinema.model.CinemaHall;
 import vic.cinema.model.Movie;
@@ -18,9 +20,10 @@ import vic.cinema.service.ShoppingCartService;
 
 public class Main {
     private static Injector injector = Injector.getInstance("vic.cinema");
+    private static final Logger logger = Logger.getLogger(Main.class.getName());
 
     public static void main(String[] args) throws AuthenticationException {
-        System.out.println("--- Movies ---");
+        logger.debug("--- Movies ---");
         Movie movie = new Movie();
         movie.setTitle("Fast and Furious");
         MovieService movieService =
@@ -29,18 +32,18 @@ public class Main {
         Movie movie2 = new Movie();
         movie2.setTitle("The Gentlemen");
         movieService.add(movie2);
-        movieService.getAll().forEach(System.out::println);
+        movieService.getAll().forEach(logger::debug);
 
-        System.out.println("--- Cinema Halls ---");
+        logger.debug("--- Cinema Halls ---");
         CinemaHall cinemaHall = new CinemaHall();
         cinemaHall.setCapacity(100);
         cinemaHall.setDescription("White");
         CinemaHallService cinemaHallService =
                 (CinemaHallService) injector.getInstance(CinemaHallService.class);
         cinemaHallService.add(cinemaHall);
-        cinemaHallService.getAll().forEach(System.out::println);
+        cinemaHallService.getAll().forEach(logger::debug);
 
-        System.out.println("--- Movie Sessions ---");
+        logger.debug("--- Movie Sessions ---");
         MovieSession movieSession = new MovieSession();
         movieSession.setMovie(movie);
         movieSession.setCinemaHall(cinemaHall);
@@ -57,9 +60,9 @@ public class Main {
 
         List<MovieSession> availableSessions =
                 movieSessionService.findAvailableSessions(movie2.getId(), LocalDate.now());
-        availableSessions.forEach(System.out::println);
+        availableSessions.forEach(logger::debug);
 
-        System.out.println("--- Users ---");
+        logger.debug("--- Users ---");
         User user = new User();
         user.setEmail("example@email.com");
         user.setPassword("qwerty");
@@ -68,21 +71,21 @@ public class Main {
 
         authenticationService.register(user.getEmail(), user.getPassword());
         User user2 = authenticationService.login(user.getEmail(), user.getPassword());
-        System.out.println(user2);
+        logger.debug(user2);
 
-        System.out.println("--- Shopping Cart ---");
+        logger.debug("--- Shopping Cart ---");
         ShoppingCartService shoppingCartService =
                 (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
         shoppingCartService.addSession(movieSession2, user2);
         shoppingCartService.addSession(movieSession, user2);
-        System.out.println("Cart with tickets: ");
-        System.out.println(shoppingCartService.getByUser(user2));
+        logger.debug("Cart with tickets: ");
+        logger.debug(shoppingCartService.getByUser(user2));
 
-        System.out.println("---- Order ----");
+        logger.debug("---- Order ----");
         OrderService orderService =
                 (OrderService) injector.getInstance(OrderService.class);
         orderService.completeOrder(shoppingCartService.getByUser(user2));
-        System.out.println("Order History:");
-        orderService.getOrderHistory(user2).forEach(System.out::println);
+        logger.debug("Order History:");
+        orderService.getOrderHistory(user2).forEach(logger::debug);
     }
 }
