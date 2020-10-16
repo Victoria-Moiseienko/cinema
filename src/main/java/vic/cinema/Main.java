@@ -73,7 +73,7 @@ public class Main {
         try {
             user2 = authenticationService.login(user.getEmail(), user.getPassword());
         } catch (Exception e) {
-            logger.warn("Authentication Service: " + e);
+            logger.warn("Login failed: " + e);
         }
         logger.info(user2);
 
