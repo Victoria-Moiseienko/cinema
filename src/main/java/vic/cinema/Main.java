@@ -19,10 +19,10 @@ import vic.cinema.service.ShoppingCartService;
 
 public class Main {
     private static Injector injector = Injector.getInstance("vic.cinema");
-    private static final Logger logger = Logger.getLogger(Main.class.getName());
+    private static final Logger logger = Logger.getLogger(Main.class);
 
     public static void main(String[] args) throws AuthenticationException {
-        logger.debug("--- Movies ---");
+        logger.info("--- Movies ---");
         Movie movie = new Movie();
         movie.setTitle("Fast and Furious");
         MovieService movieService =
@@ -31,18 +31,18 @@ public class Main {
         Movie movie2 = new Movie();
         movie2.setTitle("The Gentlemen");
         movieService.add(movie2);
-        movieService.getAll().forEach(logger::debug);
+        movieService.getAll().forEach(logger::info);
 
-        logger.debug("--- Cinema Halls ---");
+        logger.info("--- Cinema Halls ---");
         CinemaHall cinemaHall = new CinemaHall();
         cinemaHall.setCapacity(100);
         cinemaHall.setDescription("White");
         CinemaHallService cinemaHallService =
                 (CinemaHallService) injector.getInstance(CinemaHallService.class);
         cinemaHallService.add(cinemaHall);
-        cinemaHallService.getAll().forEach(logger::debug);
+        cinemaHallService.getAll().forEach(logger::info);
 
-        logger.debug("--- Movie Sessions ---");
+        logger.info("--- Movie Sessions ---");
         MovieSession movieSession = new MovieSession();
         movieSession.setMovie(movie);
         movieSession.setCinemaHall(cinemaHall);
@@ -59,9 +59,9 @@ public class Main {
 
         List<MovieSession> availableSessions =
                 movieSessionService.findAvailableSessions(movie2.getId(), LocalDate.now());
-        availableSessions.forEach(logger::debug);
+        availableSessions.forEach(logger::info);
 
-        logger.debug("--- Users ---");
+        logger.info("--- Users ---");
         User user = new User();
         user.setEmail("example@email.com");
         user.setPassword("qwerty");
@@ -69,22 +69,27 @@ public class Main {
                 (AuthenticationService) injector.getInstance(AuthenticationService.class);
 
         authenticationService.register(user.getEmail(), user.getPassword());
-        User user2 = authenticationService.login(user.getEmail(), user.getPassword());
-        logger.debug(user2);
+        User user2 = null;
+        try {
+            user2 = authenticationService.login(user.getEmail(), user.getPassword());
+        } catch (Exception e) {
+            logger.warn("Authentication Service: " + e);
+        }
+        logger.info(user2);
 
-        logger.debug("--- Shopping Cart ---");
+        logger.info("--- Shopping Cart ---");
         ShoppingCartService shoppingCartService =
                 (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
         shoppingCartService.addSession(movieSession2, user2);
         shoppingCartService.addSession(movieSession, user2);
-        logger.debug("Cart with tickets: ");
-        logger.debug(shoppingCartService.getByUser(user2));
+        logger.info("Cart with tickets: ");
+        logger.info(shoppingCartService.getByUser(user2));
 
-        logger.debug("---- Order ----");
+        logger.info("---- Order ----");
         OrderService orderService =
                 (OrderService) injector.getInstance(OrderService.class);
         orderService.completeOrder(shoppingCartService.getByUser(user2));
-        logger.debug("Order History:");
-        orderService.getOrderHistory(user2).forEach(logger::debug);
+        logger.info("Order History:");
+        orderService.getOrderHistory(user2).forEach(logger::info);
     }
 }
