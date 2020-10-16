@@ -1,5 +1,6 @@
 package vic.cinema.dao.impl;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import vic.cinema.dao.TicketDao;
@@ -10,6 +11,8 @@ import vic.cinema.util.HibernateUtil;
 
 @Dao
 public class TicketDaoImpl implements TicketDao {
+    private static final Logger logger = Logger.getLogger(TicketDaoImpl.class);
+
     @Override
     public Ticket add(Ticket ticket) {
         Transaction transaction = null;
@@ -19,6 +22,7 @@ public class TicketDaoImpl implements TicketDao {
             transaction = session.beginTransaction();
             session.save(ticket);
             transaction.commit();
+            logger.info("Ticket has been added:\n" + ticket);
             return ticket;
         } catch (Exception e) {
             if (transaction != null) {

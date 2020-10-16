@@ -3,6 +3,7 @@ package vic.cinema.dao.impl;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -14,6 +15,8 @@ import vic.cinema.util.HibernateUtil;
 
 @Dao
 public class MovieSessionDaoImpl implements MovieSessionDao {
+    private static final Logger logger = Logger.getLogger(MovieSessionDaoImpl.class);
+
     @Override
     public MovieSession add(MovieSession movieSession) {
         Transaction transaction = null;
@@ -23,6 +26,7 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
             transaction = session.beginTransaction();
             session.save(movieSession);
             transaction.commit();
+            logger.info("MovieSession has been added:\n" + movieSession);
             return movieSession;
         } catch (Exception e) {
             if (transaction != null) {
