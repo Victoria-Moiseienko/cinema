@@ -1,6 +1,7 @@
 package vic.cinema.dao.impl;
 
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -13,6 +14,8 @@ import vic.cinema.util.HibernateUtil;
 
 @Dao
 public class OrderDaoImpl implements OrderDao {
+    private static final Logger logger = Logger.getLogger(OrderDaoImpl.class);
+
     @Override
     public Order create(Order order) {
         Transaction transaction = null;
@@ -22,6 +25,7 @@ public class OrderDaoImpl implements OrderDao {
             transaction = session.beginTransaction();
             session.save(order);
             transaction.commit();
+            logger.info("Order has been added:\n" + order);
             return order;
         } catch (Exception e) {
             if (transaction != null) {
