@@ -1,11 +1,10 @@
 package vic.cinema;
 
-import java.time.LocalDate;
+/*import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.security.sasl.AuthenticationException;
 import org.apache.log4j.Logger;
-import vic.cinema.lib.Injector;
 import vic.cinema.model.CinemaHall;
 import vic.cinema.model.Movie;
 import vic.cinema.model.MovieSession;
@@ -15,10 +14,10 @@ import vic.cinema.service.CinemaHallService;
 import vic.cinema.service.MovieService;
 import vic.cinema.service.MovieSessionService;
 import vic.cinema.service.OrderService;
-import vic.cinema.service.ShoppingCartService;
+import vic.cinema.service.ShoppingCartService;*/
 
 public class Main {
-    private static Injector injector = Injector.getInstance("vic.cinema");
+   /* private static Injector injector = Injector.getInstance("vic.cinema");
     private static final Logger logger = Logger.getLogger(Main.class);
 
     public static void main(String[] args) throws AuthenticationException {
@@ -91,5 +90,5 @@ public class Main {
         orderService.completeOrder(shoppingCartService.getByUser(user2));
         logger.info("Order History:");
         orderService.getOrderHistory(user2).forEach(logger::info);
-    }
+    }*/
 }

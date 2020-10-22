@@ -1,21 +1,24 @@
-package vic.cinema.sequrity.impl;
+package vic.cinema.security.impl;
 
 import java.util.Optional;
 import javax.security.sasl.AuthenticationException;
-import vic.cinema.lib.Inject;
-import vic.cinema.lib.Service;
+import org.springframework.stereotype.Service;
 import vic.cinema.model.User;
-import vic.cinema.sequrity.AuthenticationService;
+import vic.cinema.security.AuthenticationService;
 import vic.cinema.service.ShoppingCartService;
 import vic.cinema.service.UserService;
 import vic.cinema.util.HashUtil;
 
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
-    @Inject
-    private UserService userService;
-    @Inject
-    private ShoppingCartService shoppingCartService;
+    private final UserService userService;
+    private final ShoppingCartService shoppingCartService;
+
+    public AuthenticationServiceImpl(UserService userService,
+                                     ShoppingCartService shoppingCartService) {
+        this.userService = userService;
+        this.shoppingCartService = shoppingCartService;
+    }
 
     @Override
     public User login(String email, String password) throws AuthenticationException {

@@ -1,4 +1,4 @@
-package vic.cinema.sequrity;
+package vic.cinema.security;
 
 import javax.security.sasl.AuthenticationException;
 import vic.cinema.model.User;

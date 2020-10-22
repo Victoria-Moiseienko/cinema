@@ -1,17 +1,19 @@
 package vic.cinema.service.impl;
 
 import java.util.Optional;
+import org.springframework.stereotype.Service;
 import vic.cinema.dao.UserDao;
-import vic.cinema.lib.Inject;
-import vic.cinema.lib.Service;
 import vic.cinema.model.User;
 import vic.cinema.service.UserService;
 import vic.cinema.util.HashUtil;
 
 @Service
 public class UserServiceImpl implements UserService {
-    @Inject
     private UserDao userDao;
+
+    public UserServiceImpl(UserDao userDao) {
+        this.userDao = userDao;
+    }
 
     @Override
     public User add(User user) {
