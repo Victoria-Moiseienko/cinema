@@ -3,25 +3,30 @@ package vic.cinema.dao.impl;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.springframework.stereotype.Repository;
 import vic.cinema.dao.OrderDao;
 import vic.cinema.exeptions.DataProcessingException;
-import vic.cinema.lib.Dao;
 import vic.cinema.model.Order;
 import vic.cinema.model.User;
-import vic.cinema.util.HibernateUtil;
 
-@Dao
+@Repository
 public class OrderDaoImpl implements OrderDao {
     private static final Logger logger = Logger.getLogger(OrderDaoImpl.class);
+    private final SessionFactory sessionFactory;
+
+    public OrderDaoImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     @Override
     public Order create(Order order) {
         Transaction transaction = null;
         Session session = null;
         try {
-            session = HibernateUtil.getSessionFactory().openSession();
+            session = sessionFactory.openSession();
             transaction = session.beginTransaction();
             session.save(order);
             transaction.commit();
@@ -41,7 +46,7 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public List<Order> getAllByUser(User user) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             Query<Order> query = session.createQuery(
                     "SELECT DISTINCT orders FROM Order orders "
                     + "JOIN FETCH orders.tickets t "
