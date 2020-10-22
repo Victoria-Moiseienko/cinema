@@ -44,7 +44,7 @@ public class AppConfig {
         properties.put("hibernate.hbm2ddl.auto",
                 environment.getProperty("hibernate.hbm2ddl.auto"));
         sessionFactoryBean.setHibernateProperties(properties);
-        sessionFactoryBean.setPackagesToScan("com.cinema.model");
+        sessionFactoryBean.setPackagesToScan("vic.cinema.model");
         return sessionFactoryBean;
     }
 }
