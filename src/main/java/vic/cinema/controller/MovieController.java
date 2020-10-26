@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import vic.cinema.dto.MovieRequestDto;
 import vic.cinema.dto.MovieResponseDto;
 import vic.cinema.mapper.MovieMapper;
-import vic.cinema.model.Movie;
 import vic.cinema.service.MovieService;
 
 @RestController
