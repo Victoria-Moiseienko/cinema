@@ -82,4 +82,21 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
             }
         }
     }
+
+    @Override
+    public ShoppingCart getByUserId(Long id) {
+        try (Session session = sessionFactory.openSession()) {
+            Query<ShoppingCart> query = session.createQuery(
+                    "FROM ShoppingCart cart "
+                            + "JOIN FETCH cart.user user "
+                            + "LEFT JOIN FETCH cart.tickets "
+                            + "WHERE user.id = :userId",
+                    ShoppingCart.class);
+            query.setParameter("userId", id);
+            return query.uniqueResult();
+        } catch (Exception e) {
+            throw new DataProcessingException(
+                    "Shopping Cart for user [" + id + "] has not been found", e);
+        }
+    }
 }
