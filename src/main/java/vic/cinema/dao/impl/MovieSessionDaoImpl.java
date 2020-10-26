@@ -60,4 +60,15 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
             throw new DataProcessingException("Available Sessions have not been selected\n", e);
         }
     }
+
+    @Override
+    public List<MovieSession> getAll() {
+        try (Session session = sessionFactory.openSession()) {
+            Query<MovieSession> getAllMovieSessionsQuery =
+                    session.createQuery("from MovieSession", MovieSession.class);
+            return getAllMovieSessionsQuery.getResultList();
+        } catch (Exception e) {
+            throw new DataProcessingException("Can't get all movie sessions", e);
+        }
+    }
 }
