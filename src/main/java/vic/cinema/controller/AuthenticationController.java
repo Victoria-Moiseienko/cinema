@@ -8,7 +8,6 @@ import vic.cinema.security.AuthenticationService;
 
 @RestController
 public class AuthenticationController {
-    //Register - POST: /register
     private final AuthenticationService service;
 
     public AuthenticationController(AuthenticationService service) {

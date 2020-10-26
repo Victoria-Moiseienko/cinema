@@ -7,7 +7,7 @@ import vic.cinema.model.Movie;
 
 @Component
 public class MovieMapper {
-    public MovieResponseDto getMovieResponseDto(Movie movie) {
+    public MovieResponseDto toDto(Movie movie) {
         MovieResponseDto responseDto = new MovieResponseDto();
         responseDto.setMovieId(movie.getId());
         responseDto.setDescription(movie.getDescription());
@@ -15,7 +15,7 @@ public class MovieMapper {
         return responseDto;
     }
 
-    public Movie getMovie(MovieRequestDto movieRequestDto) {
+    public Movie toMovie(MovieRequestDto movieRequestDto) {
         Movie movie = new Movie();
         movie.setDescription(movieRequestDto.getDescription());
         movie.setTitle(movieRequestDto.getTitle());
