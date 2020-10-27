@@ -7,7 +7,7 @@ import vic.cinema.model.User;
 @Component
 public class UserMapper {
 
-    public UserResponseDto getUserResponseDto(User user) {
+    public UserResponseDto toDto(User user) {
         UserResponseDto userResponseDto = new UserResponseDto();
         userResponseDto.setUserId(user.getId());
         userResponseDto.setEmail(user.getEmail());

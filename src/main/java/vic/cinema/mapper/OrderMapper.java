@@ -9,12 +9,6 @@ import vic.cinema.model.Ticket;
 
 @Component
 public class OrderMapper {
-    private final TicketMapper ticketMapper;
-
-    public OrderMapper(TicketMapper ticketMapper) {
-        this.ticketMapper = ticketMapper;
-    }
-
     public OrderResponseDto toDto(Order order) {
         OrderResponseDto dto = new OrderResponseDto();
         dto.setOrderId(order.getId());

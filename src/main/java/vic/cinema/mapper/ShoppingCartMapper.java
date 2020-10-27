@@ -9,12 +9,6 @@ import vic.cinema.model.Ticket;
 
 @Component
 public class ShoppingCartMapper {
-    private final TicketMapper ticketMapper;
-
-    public ShoppingCartMapper(TicketMapper ticketMapper) {
-        this.ticketMapper = ticketMapper;
-    }
-
     public ShoppingCartResponseDto toDto(ShoppingCart shoppingCart) {
         ShoppingCartResponseDto dto = new ShoppingCartResponseDto();
         dto.setId(shoppingCart.getId());
