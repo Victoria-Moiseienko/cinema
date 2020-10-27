@@ -6,7 +6,8 @@ import lombok.Data;
 
 @Data
 public class OrderResponseDto {
+    private Long orderId;
     private Long userId;
     private LocalDateTime orderDate;
-    private List<TicketResponseDto> tickets;
+    private List<Long> ticketIds;
 }

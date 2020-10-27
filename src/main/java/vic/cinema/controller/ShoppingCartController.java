@@ -12,7 +12,7 @@ import vic.cinema.service.ShoppingCartService;
 import vic.cinema.service.UserService;
 
 @RestController
-@RequestMapping("shopping-carts")
+@RequestMapping("/shopping-carts")
 public class ShoppingCartController {
     private final ShoppingCartMapper shoppingCartMapper;
     private final ShoppingCartService shoppingCartService;
@@ -29,15 +29,16 @@ public class ShoppingCartController {
         this.userService = userService;
     }
 
-    @PostMapping("movie-sessions")
+    @PostMapping("/movie-sessions")
     public void addSession(@RequestParam Long userId,
                            @RequestParam Long movieSessionId) {
         shoppingCartService.addSession(movieSessionService.get(movieSessionId),
                 userService.get(userId));
     }
 
-    @GetMapping
+    @GetMapping("/by-user")
     public ShoppingCartResponseDto getShoppingCartByUser(@RequestParam Long userId) {
-        return shoppingCartMapper.toDto(shoppingCartService.getByUserId(userId));
+        return shoppingCartMapper.toDto(
+                shoppingCartService.getByUser(userService.get(userId)));
     }
 }
