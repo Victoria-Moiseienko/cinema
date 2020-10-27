@@ -54,4 +54,13 @@ public class UserDaoImpl implements UserDao {
                     "User has not been found: email[" + email + "]", e);
         }
     }
+
+    @Override
+    public User get(Long id) {
+        try (Session session = sessionFactory.openSession()) {
+            return session.get(User.class, id);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed get user by id: " + id, e);
+        }
+    }
 }
